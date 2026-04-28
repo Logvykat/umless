@@ -69,8 +69,6 @@ src/
 components.json        shadcn config (style: base-nova, baseColor: neutral)
 CLAUDE.md              → @AGENTS.md (re-export, do not edit)
 AGENTS.md              This file
-design-system.md       Token spec + Figma sync (see below)
-component-spec.md      Bespoke (non-shadcn) components: timer, voice modulation, etc.
 ```
 
 **Convention:** feature-scoped components live in `src/components/<feature>/`. Reusable primitives stay in `src/components/ui/`. Don't flatten.
@@ -85,13 +83,12 @@ This is **Figma-first**. Code follows design, not the other way around.
 |-------------------------------|----------------------------------------------------|
 | Design decisions, new tokens  | **Figma** (file: `fOb93S5nOD4oM5GkmlOL00`)         |
 | What's running in the app     | **`src/app/globals.css`**                          |
-| Snapshot connecting the two   | **`design-system.md`**                             |
-| Custom component logic        | **`component-spec.md`**                            |
+| Custom component behavior     | **The component code itself** (commented inline)   |
 
 When Figma and code disagree:
 - For **design intent** (what something *should* be) — Figma wins. Update code to match.
 - For **what's shipped** (what's actually rendered) — code wins. Don't pretend Figma matches if it doesn't.
-- Document drift in `design-system.md` rather than hide it.
+- Document drift in code comments where it lives, not in a separate doc.
 
 When you (the agent) need design context, use the Figma MCP tools:
 - `Figma:get_design_context` for layout / specs
@@ -122,7 +119,35 @@ landing  ──(hit record)──►  recording  ──(hit stop)──►  resu
 
 **Visual continuity:** the timer is the spine — it's present in landing (idle), recording (active), and results (settled). Surrounding content fades around it. This is intentional; don't break it.
 
-See `component-spec.md` for the timer and voice modulation behavior, including the Toastmasters milestone arcs and the sin × cos modulation formula.
+---
+
+## Bespoke components
+
+Two non-shadcn components carry the product's identity. Logic lives in the component code itself, not in a separate doc — see comments inline. Figma is the source of truth for the visuals.
+
+### Timer (the spine)
+
+The circular timer is present across all three states (landing, recording, results). It carries the Toastmasters milestones and never disappears — surrounding content reconfigures around it.
+
+- **Behavior:** counts up from `00:00`, visible from the start. Milestone marks at **5:00 / 6:00 / 7:00** are visible from frame one (not progressively revealed). Format `MM:SS` for v1; sub-second precision is a polish-pass decision.
+- **Milestone semantics:** 5min = green ("minimum acceptable"), 6min = yellow ("ideal"), 7min = red ("hard ceiling"). Use the milestone color tokens for the marks.
+- **States:** idle (paused, no animation), recording (active), results (frozen at final time).
+- **Implementation note:** SVG arc, no novel geometry. Standard `stroke-dasharray` for the progress arc; absolute-positioned tick marks for the milestones.
+- **Restyled** from the earlier prototype — see Figma file (user provides the node when building).
+
+### Dotted hero pattern (modulation surface)
+
+The dotted background pattern serves a dual role:
+- **Idle / landing:** decorative, static, low opacity.
+- **Recording:** dot opacity is **modulated by the live audio level**. Louder input → higher opacity. This is the entire voice modulation visualization for v1 — there are **no bars** (the earlier prototype's sin × cos animated bars are deprecated).
+
+- **Input:** mic audio level (RMS or peak from the Web Audio API analyser node).
+- **Output:** opacity range, mapped from a smoothed audio level. Specific range and smoothing curve are tuning decisions to make during the build, not predict in advance. Document the chosen values as code comments once they feel right.
+- **Performance:** opacity-only animation on a single element. Don't animate per-dot — the dots are a static SVG/CSS pattern; only the container's opacity changes.
+
+### Auto-hide controls (recording state)
+
+Pause / stop / restart controls fade out after a few seconds of inactivity during recording, restore on mouse movement. Implementation is a single `useEffect` with a debounced timer, not a separate component contract.
 
 ---
 
@@ -136,7 +161,7 @@ Tokens live in `src/app/globals.css` in two layers:
 **Rules of engagement:**
 - Use the shadcn semantic tokens (`bg-primary`, `text-muted-foreground`) by default.
 - **Page background uses `bg-page-surface` (custom), not `bg-background`** — this is intentional, do not "fix" it.
-- Avoid hardcoded hex in components. If a value isn't in the token system, add it to `globals.css` first, then use the token name. See `design-system.md` for the canonical list.
+- Avoid hardcoded hex in components. If a value isn't in the token system, add it to `globals.css` first, then use the token name. The token list in `globals.css` is canonical.
 - For component variants, use CVA — there are existing patterns in `src/components/ui/` to mirror.
 
 **Known gaps (documented, not bugs):**
@@ -174,19 +199,16 @@ npm run lint     # ESLint
 - Next.js scaffold complete on Next 16 / React 19 / Tailwind v4 / shadcn 4 + Base UI
 - Token system bootstrapped in `globals.css` (shadcn semantics + custom page-surface, brand neutrals, spacing, radius, shadows)
 - Inter wired; Space Grotesk and Geist imported but not wired through to utilities
-- Basic timer component generated by Claude Code (not yet final — will be regenerated against the new Figma spec once `design-system.md` and `component-spec.md` are written)
+- Basic timer component generated by Claude Code (not yet final — will be regenerated against the restyled Figma spec)
 - Landing page: not yet built (designs done in Figma)
 
 ## Immediate next milestone
 
-1. Write `design-system.md` (token + font spec, synced from Figma)
-2. Write `component-spec.md` (timer, voice modulation, dotted hero, focus overlay)
-3. Surface Space Grotesk in `@theme` and apply to headings + buttons
-4. Remove Geist imports
-5. Build the landing page from Figma
-6. Regenerate the timer component against the new spec
-
-Don't skip ahead — the docs are the foundation the build leans on.
+1. Surface Space Grotesk in `@theme` and apply to headings + buttons
+2. Remove Geist imports from `layout.tsx`
+3. Build the landing page from Figma
+4. Regenerate the timer component against the restyled Figma spec
+5. Wire the dotted hero pattern + audio-level → opacity modulation
 
 ---
 

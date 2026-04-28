@@ -16,7 +16,7 @@ export function Controls({ status, onPause, onStop, onRestart }: ControlsProps) 
       {/* Pause / Resume — small pill */}
       <button
         onClick={onPause}
-        className="flex items-center justify-center size-12 rounded-full bg-secondary cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        className="flex items-center justify-center size-12 rounded-full bg-secondary cursor-pointer hover-ring-secondary"
         aria-label={status === "paused" ? "Resume" : "Pause"}
       >
         {status === "paused" ? (
@@ -29,7 +29,7 @@ export function Controls({ status, onPause, onStop, onRestart }: ControlsProps) 
       {/* Stop — large circle */}
       <button
         onClick={onStop}
-        className="flex items-center justify-center size-24 rounded-full bg-primary shadow-lg cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        className="flex items-center justify-center size-24 rounded-full bg-primary shadow-lg cursor-pointer hover-ring-primary"
         aria-label="Stop"
       >
         <Square className="size-8 text-primary-foreground" />
@@ -38,7 +38,7 @@ export function Controls({ status, onPause, onStop, onRestart }: ControlsProps) 
       {/* Restart — small pill */}
       <button
         onClick={onRestart}
-        className="flex items-center justify-center size-12 rounded-full bg-secondary cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        className="flex items-center justify-center size-12 rounded-full bg-secondary cursor-pointer hover-ring-secondary"
         aria-label="Restart"
       >
         <RotateCcw className="size-6 text-foreground" />

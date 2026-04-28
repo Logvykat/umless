@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 /* ── constants ── */
 const CX = 170;
 const CY = 170;
 const R = 125;
 const STROKE = 48;
-const GAP_DEG = 24;
+const GAP_DEG = 2;
 const START_ANGLE = -90;
 const MAX_TIME = 420;
+const CORNER_R = 12;
+const Ro = R + STROKE / 2;
+const Ri = R - STROKE / 2;
 
 const ZONES = [
   { label: "5:00", from: 0, to: 300, color: "#22c55e", gradEnd: "#84cc16" },
@@ -35,13 +38,68 @@ function toRad(deg: number) {
   return (deg * Math.PI) / 180;
 }
 
-function arcPath(a1: number, a2: number) {
-  const x1 = CX + R * Math.cos(toRad(a1));
-  const y1 = CY + R * Math.sin(toRad(a1));
-  const x2 = CX + R * Math.cos(toRad(a2));
-  const y2 = CY + R * Math.sin(toRad(a2));
-  return `M ${x1} ${y1} A ${R} ${R} 0 ${a2 - a1 > 180 ? 1 : 0} 1 ${x2} ${y2}`;
+function polar(r: number, aDeg: number): [number, number] {
+  return [CX + r * Math.cos(toRad(aDeg)), CY + r * Math.sin(toRad(aDeg))];
 }
+
+function annularSectorPath(
+  a1: number,
+  a2: number,
+  cr1: number,
+  cr2: number
+): string {
+  // Angular offsets produced by corner radii at each radius
+  const dO1 = cr1 > 0 ? (cr1 / Ro) * (180 / Math.PI) : 0;
+  const dI1 = cr1 > 0 ? (cr1 / Ri) * (180 / Math.PI) : 0;
+  const dO2 = cr2 > 0 ? (cr2 / Ro) * (180 / Math.PI) : 0;
+  const dI2 = cr2 > 0 ? (cr2 / Ri) * (180 / Math.PI) : 0;
+
+  const outerSpan = (a2 - dO2) - (a1 + dO1);
+  const innerSpan = (a2 - dI2) - (a1 + dI1);
+
+  const parts: string[] = [];
+
+  if (cr1 > 0) {
+    const [sx, sy] = polar(Ro - cr1, a1);
+    parts.push(`M ${sx} ${sy}`);
+    const [tx, ty] = polar(Ro, a1 + dO1);
+    parts.push(`A ${cr1} ${cr1} 0 0 1 ${tx} ${ty}`);
+  } else {
+    const [sx, sy] = polar(Ro, a1);
+    parts.push(`M ${sx} ${sy}`);
+  }
+
+  const [oex, oey] = polar(Ro, a2 - dO2);
+  parts.push(`A ${Ro} ${Ro} 0 ${outerSpan > 180 ? 1 : 0} 1 ${oex} ${oey}`);
+
+  if (cr2 > 0) {
+    const [ex, ey] = polar(Ro - cr2, a2);
+    parts.push(`A ${cr2} ${cr2} 0 0 1 ${ex} ${ey}`);
+    const [ix, iy] = polar(Ri + cr2, a2);
+    parts.push(`L ${ix} ${iy}`);
+    const [itx, ity] = polar(Ri, a2 - dI2);
+    parts.push(`A ${cr2} ${cr2} 0 0 1 ${itx} ${ity}`);
+  } else {
+    const [ix, iy] = polar(Ri, a2);
+    parts.push(`L ${ix} ${iy}`);
+  }
+
+  const [isx, isy] = polar(Ri, a1 + dI1);
+  parts.push(`A ${Ri} ${Ri} 0 ${innerSpan > 180 ? 1 : 0} 0 ${isx} ${isy}`);
+
+  if (cr1 > 0) {
+    const [bx, by] = polar(Ri + cr1, a1);
+    parts.push(`A ${cr1} ${cr1} 0 0 1 ${bx} ${by}`);
+  }
+
+  parts.push("Z");
+  return parts.join(" ");
+}
+
+/* static track paths — computed once, never change */
+const trackPaths = zoneSpans.map((span, i) =>
+  annularSectorPath(segStarts[i], segStarts[i] + span, CORNER_R, CORNER_R)
+);
 
 /* dot + label positions */
 const dotData = ZONES.map((z, i) => {
@@ -155,30 +213,25 @@ export function TimerRing({ status, elapsed, onElapsedChange }: TimerRingProps) 
         </defs>
 
         {/* Track segments (inactive) */}
-        {zoneSpans.map((span, i) => (
-          <path
-            key={`t${i}`}
-            d={arcPath(segStarts[i], segStarts[i] + span)}
-            fill="none"
-            stroke="rgba(57, 60, 60, 0.12)"
-            strokeWidth={STROKE}
-            strokeLinecap="butt"
-          />
+        {trackPaths.map((d, i) => (
+          <path key={`t${i}`} d={d} fill="rgba(57, 60, 60, 0.12)" />
         ))}
 
-        {/* Filled progress */}
+        {/* Filled progress — rounded start edge, flat leading edge */}
         {zoneSpans.map((span, i) => {
           if (fills[i] <= 0) return null;
           const a1 = segStarts[i];
-          const a2 = a1 + Math.max(span * fills[i], 2);
+          const fillSpan = span * fills[i];
+          // Minimum angular span to avoid degenerate geometry
+          const minSpan = (CORNER_R / Ro) * (180 / Math.PI) * 2;
+          if (fillSpan < minSpan) return null;
+          const a2 = a1 + fillSpan;
+          const endCr = fills[i] >= 0.99 ? CORNER_R : 0;
           return (
             <path
               key={`f${i}`}
-              d={arcPath(a1, a2)}
-              fill="none"
-              stroke={`url(#zg${i})`}
-              strokeWidth={STROKE}
-              strokeLinecap="butt"
+              d={annularSectorPath(a1, a2, CORNER_R, endCr)}
+              fill={`url(#zg${i})`}
             />
           );
         })}

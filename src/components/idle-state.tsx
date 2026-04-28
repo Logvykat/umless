@@ -1,4 +1,4 @@
-import { Mic } from "lucide-react";
+import { GraduationCap, Mic } from "lucide-react";
 
 interface IdleStateProps {
   onStart: () => void;
@@ -9,10 +9,8 @@ export function IdleState({ onStart }: IdleStateProps) {
     <div className="flex flex-col items-center gap-3xl">
       {/* Text + Icon */}
       <div className="flex flex-col items-center gap-xl">
-        <div className="pb-xs">
-          <div className="flex items-center justify-center size-16 rounded-lg bg-secondary">
-            <Mic className="size-8 text-secondary-foreground" />
-          </div>
+        <div className="flex items-center justify-center size-16 rounded-lg bg-secondary p-xs mb-xs">
+          <GraduationCap className="size-8 text-foreground" />
         </div>
         <div className="flex flex-col items-center gap-md text-center">
           <h3 className="text-2xl font-semibold tracking-[-1px] leading-[28.8px] text-black">
@@ -28,7 +26,7 @@ export function IdleState({ onStart }: IdleStateProps) {
       {/* Start recording button */}
       <button
         onClick={onStart}
-        className="flex items-center gap-sm bg-primary text-primary-foreground pl-xl pr-2xl py-lg rounded-full shadow-lg cursor-pointer hover:bg-primary/90 transition-colors"
+        className="flex items-center gap-sm bg-primary text-primary-foreground pl-xl pr-2xl py-lg rounded-full shadow-lg cursor-pointer hover-ring-primary"
       >
         <Mic className="size-8" />
         <span className="text-xl font-semibold leading-6">

@@ -1,24 +1,26 @@
-import Link from "next/link";
+"use client";
+
+import { TopBar } from "@/components/landing/top-bar";
+import { Hero } from "@/components/landing/hero";
+import { Features } from "@/components/landing/features";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { Closer } from "@/components/landing/closer";
+import { Footer } from "@/components/landing/footer";
 
 export default function LandingPage() {
+  // Placeholder — will be wired to the recording state machine in a later session
+  const handleRecord = () => console.log("start recording clicked");
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-xl p-md">
-      <div className="flex flex-col items-center gap-md text-center">
-        <div className="size-12 rounded-xl bg-brand-800" />
-        <h1 className="text-5xl font-semibold tracking-[-1.5px] leading-[48px]">
-          Hot Mic
-        </h1>
-        <p className="text-lg text-secondary-foreground max-w-md leading-[27px]">
-          A free, browser-based speech practice tool. Time your talks, hit your
-          marks, and get better at speaking.
-        </p>
-      </div>
-      <Link
-        href="/app"
-        className="flex items-center gap-sm bg-primary text-primary-foreground px-2xl py-lg rounded-full shadow-lg text-base font-medium hover:bg-primary/90 transition-colors"
-      >
-        Open Speech Analyzer
-      </Link>
+    <div className="flex flex-col min-h-screen bg-background">
+      <TopBar />
+      <main className="flex flex-col flex-1">
+        <Hero onRecord={handleRecord} />
+        <Features />
+        <HowItWorks />
+        <Closer onRecord={handleRecord} />
+      </main>
+      <Footer />
     </div>
   );
 }
