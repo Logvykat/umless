@@ -60,7 +60,7 @@
 
   /* Shadows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-lg-default: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+  --shadow-lg-default: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
   --shadow-sm-soft: 0 2px 4px #0a0a0a0d;
 
   /* Product-specific */
