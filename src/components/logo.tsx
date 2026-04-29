@@ -6,7 +6,7 @@ export function Logo() {
       href="/"
       target="_blank"
       rel="noopener noreferrer"
-      className="block size-8 rounded-xl bg-brand-800 shrink-0"
+      className="block size-8 rounded-xl bg-primary shrink-0"
       aria-label="Hot Mic home"
     />
   );

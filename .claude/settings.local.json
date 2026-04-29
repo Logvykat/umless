@@ -9,7 +9,10 @@
       "mcp__figma-console__figma_get_file_data",
       "mcp__ac27dad0-1a0b-43d8-a7cd-bcb78e277468__get_design_context",
       "Bash(npx shadcn@latest add badge card)",
-      "mcp__Figma__get_metadata"
+      "mcp__Figma__get_metadata",
+      "Bash(node -e \"const j = JSON.parse\\(require\\('fs'\\).readFileSync\\('src/styles/tokens/raw.colors.tokens.json'\\)\\); console.log\\(Object.keys\\(j\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''src/styles/tokens/raw.colors.tokens.json'\\\\''\\)\\); const needed = ['\\\\''neutral'\\\\'','\\\\''red'\\\\'','\\\\''amber'\\\\'','\\\\''green'\\\\'']; needed.forEach\\(k => { const ramp = j[k]; if \\(ramp\\) { Object.entries\\(ramp\\).forEach\\(\\([stop, v]\\) => console.log\\(k+'\\\\''/'\\\\''+stop+'\\\\'':'\\\\'', v['\\\\''$value'\\\\''].hex\\)\\); } }\\); console.log\\('\\\\''white:'\\\\'', j.white['\\\\''$value'\\\\''].hex\\); console.log\\('\\\\''black:'\\\\'', j.black['\\\\''$value'\\\\''].hex\\);')",
+      "Bash(node -e ' *)"
     ]
   }
 }

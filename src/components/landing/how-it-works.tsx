@@ -1,3 +1,7 @@
+"use client";
+
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const STEPS = [
   { n: 1, title: "Hit record", description: "One tap. No setup." },
   { n: 2, title: "Say your piece", description: "As many takes as you need." },
@@ -9,18 +13,29 @@ const STEPS = [
 ];
 
 export function HowItWorks() {
+  const { ref, isRevealed } = useScrollReveal({ threshold: 0.2 });
+
   return (
-    <section className="pt-12 pb-24 px-6 bg-background">
+    <section
+      ref={ref}
+      className={`pt-12 pb-24 px-6 bg-background${isRevealed ? " is-revealed" : ""}`}
+    >
       <div className="max-w-[1100px] mx-auto">
-        <h2 className="font-display font-semibold text-[32px] leading-none tracking-[-1px] text-center mb-12 md:text-[48px]">
+        <h2
+          className="font-display font-semibold text-[32px] leading-none tracking-[-1px] text-center mb-12 md:text-[48px]"
+          data-reveal-child
+          data-stagger-index="0"
+        >
           How it works
         </h2>
 
         <div className="flex flex-col divide-y divide-border">
-          {STEPS.map(({ n, title, description }) => (
+          {STEPS.map(({ n, title, description }, idx) => (
             <div
               key={n}
               className="flex items-start justify-between gap-6 p-[32px] md:items-center"
+              data-reveal-child
+              data-stagger-index={idx + 1}
             >
               {/* Number + title — heading-3 scale per Figma */}
               <div className="flex items-center gap-6 shrink-0">

@@ -1,7 +1,10 @@
+"use client";
+
 import { Gauge, MessageSquare, PauseCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
   {
@@ -27,16 +30,30 @@ const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
 const PILLS = ["No signup", "English only", "Free", "Private"];
 
 export function Features() {
+  const { ref, isRevealed } = useScrollReveal({ threshold: 0.2 });
+
   return (
-    <section className="py-12 px-6 bg-background">
+    <section
+      ref={ref}
+      className={`py-12 px-6 bg-background${isRevealed ? " is-revealed" : ""}`}
+    >
       <div className="max-w-[1100px] mx-auto">
-        <h2 className="font-display font-semibold text-[32px] leading-none tracking-[-1px] text-center mb-12 md:text-[48px]">
+        <h2
+          className="font-display font-semibold text-[32px] leading-none tracking-[-1px] text-center mb-12 md:text-[48px]"
+          data-reveal-child
+          data-stagger-index="0"
+        >
           The honest playback
         </h2>
 
         <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, title, description }) => (
-            <Card key={title} variant="feature">
+          {FEATURES.map(({ icon: Icon, title, description }, idx) => (
+            <Card
+              key={title}
+              variant="feature"
+              data-reveal-child
+              data-stagger-index={idx + 1}
+            >
               {/* Icon container — white rounded square, soft shadow */}
               <div className="size-12 rounded-[40px] bg-white flex items-center justify-center shrink-0 shadow-sm-soft">
                 <Icon className="size-6 text-foreground" strokeWidth={1.5} />
@@ -54,13 +71,19 @@ export function Features() {
           ))}
         </div>
 
-        {/* Pill row — static for Stage 1; Stage 2 turns this into an infinite loop */}
-        <div className="flex items-center gap-4 overflow-x-auto pb-1 hide-scrollbar">
-          {[...PILLS, ...PILLS, ...PILLS].map((pill, i) => (
-            <Badge key={i} variant="outline" size="2xl" className="shrink-0">
-              {pill}
-            </Badge>
-          ))}
+        {/* Pill carousel — infinite right-to-left marquee */}
+        <div
+          className="overflow-hidden"
+          data-reveal-child
+          data-stagger-index="4"
+        >
+          <div className="pill-carousel">
+            {[...PILLS, ...PILLS].map((pill, i) => (
+              <Badge key={i} variant="outline" size="2xl" className="shrink-0 mx-2">
+                {pill}
+              </Badge>
+            ))}
+          </div>
         </div>
       </div>
     </section>

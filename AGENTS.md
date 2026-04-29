@@ -153,21 +153,37 @@ Pause / stop / restart controls fade out after a few seconds of inactivity durin
 
 ## Tokens & styling conventions
 
-Tokens live in `src/app/globals.css` in two layers:
+Tokens live in `src/app/globals.css` in a 4-layer architecture derived from Figma JSON exports in `src/styles/tokens/`.
 
-1. **`:root`** — shadcn semantic tokens as raw hex (`--primary`, `--muted`, `--card`, etc.)
-2. **`@theme inline`** — surfaces those into Tailwind's namespace as `--color-*` plus product-specific extras (`--color-page-surface`, `--color-brand-800`, the spacing scale, the radius scale, shadows)
+**Layer structure (all in `:root`):**
+
+1. **Layer 1A — color primitives:** raw hex literals (`--neutral-50` … `--neutral-950`, `--red-*`, `--amber-*`, `--green-*`, `--white`, `--black`). Never referenced in components directly.
+2. **Layer 1B — alpha primitives:** `--alpha-white-0` … `--alpha-white-100` and `--alpha-black-0` … `--alpha-black-100` as `rgba()` values. Note: alpha-black base is `#0A0A0A` (neutral-950), not `#000000`.
+3. **Layer 1C — spacing + radius primitives:** `--space-raw-*` (px values) and `--radius-raw-*`. Used only as the target of Layer 3/4 aliases; never used in components.
+4. **Layer 2 — brand aliases:** `--brand-neutrals-50` … `--brand-neutrals-950` → `var(--neutral-*)`. Use these in Layer 3 definitions, not in components.
+5. **Layer 3 — semantic tokens:** shadcn tokens (`--background`, `--primary`, `--muted`, etc.), sidebar tokens, typography CSS vars (`--font-size-heading-1`, `--line-height-heading-1`, etc.), and unofficial state tokens. These are what components should reference.
+6. **Layer 4 — product tokens:** `--page-surface`, `--nav-bg`, `--nav-border`, `--dot-pattern`, `--timer-track`, `--card-surface`, etc. These are the app-specific surface tokens.
+
+**`@theme inline` exposure:**
+- Only Layer 3 + Layer 4 tokens are exposed as Tailwind utilities — primitives are intentionally excluded.
+- `--color-*` → `bg-primary`, `text-muted-foreground`, `bg-page-surface`, etc.
+- `--spacing-*` → `p-xs`, `gap-md`, `mt-xl`, etc. (named scale, not numeric)
+- `--radius-*` → `rounded-sm`, `rounded-md`, `rounded-full`, etc.
+- `--shadow-*` → overrides Tailwind's shadow defaults with design-system values
+- `--text-*` + `--text-*--line-height` → typography composite utilities
+- **Important:** `@theme inline` variables are baked into generated CSS at build time. They are NOT retained as runtime CSS custom properties — `getComputedStyle(document.documentElement).getPropertyValue('--spacing-xs')` returns empty string. This is expected Tailwind v4 behavior, not a bug.
 
 **Rules of engagement:**
-- Use the shadcn semantic tokens (`bg-primary`, `text-muted-foreground`) by default.
-- **Page background uses `bg-page-surface` (custom), not `bg-background`** — this is intentional, do not "fix" it.
-- Avoid hardcoded hex in components. If a value isn't in the token system, add it to `globals.css` first, then use the token name. The token list in `globals.css` is canonical.
+- Use Layer 3 semantic tokens (`bg-primary`, `text-muted-foreground`) by default.
+- Use Layer 4 product tokens for surfaces (`bg-page-surface`, `bg-nav-bg`).
+- **Page background uses `bg-page-surface`, not `bg-background`** — intentional, do not "fix" it.
+- Avoid hardcoded hex in components. If a value isn't in the token system, add it to `globals.css` first.
 - For component variants, use CVA — there are existing patterns in `src/components/ui/` to mirror.
+- `--color-brand-800`, `--color-brand-100`, `--color-grey-300`, `--color-border-3`, `--shadow-lg-default` are **removed** — they no longer exist. Use `bg-primary`, `bg-muted`, `text-ring`, `border-ring`, `shadow-lg` respectively.
 
 **Known gaps (documented, not bugs):**
-- Brand neutrals (`--color-brand-800`, etc.) live as raw hex in `globals.css`. They should eventually become aliases pointing at primitives once the brand collection is built in Figma. Don't expand the raw-hex list — push new values through aliases.
-- **Space Grotesk is wired in `layout.tsx` as a font variable but not surfaced in `@theme`.** Headings and buttons currently render in Inter, but Figma specs them as Space Grotesk. When building components that include headings or buttons, add the font variable to `@theme` (`--font-display: var(--font-space-grotesk)`) and apply via Tailwind utility (e.g., `font-display`).
-- Geist was an exploration — pending removal from `layout.tsx` imports.
+- Footer (`src/components/landing/footer.tsx`) uses `text-[#f5f5f5]` and `text-[#f5f5f5]/60` — these are on a permanently-dark `bg-primary` section where light-mode semantic tokens don't map cleanly. Pre-existing design gap; not a migration error.
+- Geist font import is pending removal from `layout.tsx`.
 
 ---
 
@@ -175,9 +191,9 @@ Tokens live in `src/app/globals.css` in two layers:
 
 | Role                  | Font          | Wired in code?              |
 |-----------------------|---------------|-----------------------------|
-| Body / paragraph      | Inter         | ✅ as `--font-sans`          |
-| Headings + buttons    | Space Grotesk | ⚠️ loaded, not yet surfaced |
-| ~~Numerical accents~~ | ~~Geist~~     | ❌ pending removal           |
+| Body / paragraph      | Inter         | ✅ as `--font-sans`                        |
+| Headings + buttons    | Space Grotesk | ✅ as `--font-display` (surfaced in @theme) |
+| ~~Numerical accents~~ | ~~Geist~~     | ❌ pending removal from `layout.tsx`        |
 
 Loaded via `next/font/google` in `src/app/layout.tsx`.
 
@@ -197,8 +213,8 @@ npm run lint     # ESLint
 ## Current state (as of last update)
 
 - Next.js scaffold complete on Next 16 / React 19 / Tailwind v4 / shadcn 4 + Base UI
-- Token system bootstrapped in `globals.css` (shadcn semantics + custom page-surface, brand neutrals, spacing, radius, shadows)
-- Inter wired; Space Grotesk and Geist imported but not wired through to utilities
+- Token system fully migrated to 4-layer architecture in `globals.css` (derived from Figma JSON exports in `src/styles/tokens/`)
+- Inter wired as `--font-sans`; Space Grotesk now surfaced as `--font-display`; Geist pending removal from `layout.tsx`
 - Basic timer component generated by Claude Code (not yet final — will be regenerated against the restyled Figma spec)
 - Landing page: not yet built (designs done in Figma)
 

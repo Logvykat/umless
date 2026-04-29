@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const NAV_LINKS: { label: string; href: string; external: boolean }[] = [
   { label: "About", href: "#", external: true },
@@ -8,11 +11,16 @@ const NAV_LINKS: { label: string; href: string; external: boolean }[] = [
 ];
 
 export function Footer() {
+  const { ref, isRevealed } = useScrollReveal({ threshold: 0.2 });
+
   return (
     // overflow-hidden clips the wordmark on narrow viewports
-    <footer className="bg-brand-800 text-primary-foreground overflow-hidden">
+    <footer
+      ref={ref}
+      className={`bg-primary text-primary-foreground overflow-hidden${isRevealed ? " is-revealed" : ""}`}
+    >
       {/* Outer: centers the 1100px content column, pt-64 pb-96 per Figma */}
-      <div className="flex flex-col items-center pt-[64px] pb-[96px]">
+      <div className={`flex flex-col items-center pt-[64px] pb-[96px] reveal-unit`}>
         {/* Content column — 1100px max, matching Figma content frame */}
         <div className="w-full max-w-[1100px] px-6 md:px-0 flex flex-col gap-[64px]">
 

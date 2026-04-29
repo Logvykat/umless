@@ -1,15 +1,39 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Moon, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { cn } from "@/lib/utils";
 
 export function TopBar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 0);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <nav
-      className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 md:py-[32px] border-b border-border"
+      className={cn(
+        "sticky top-0 z-50 flex items-center justify-between px-6 transition-all duration-[250ms] ease-out",
+        isScrolled
+          ? "py-2 backdrop-blur-md border-b border-border"
+          : "py-4 md:py-[32px] border-b border-transparent"
+      )}
       style={{
         backgroundColor: "var(--color-nav-bg)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
       }}
     >
       <div className="flex items-center gap-2">
