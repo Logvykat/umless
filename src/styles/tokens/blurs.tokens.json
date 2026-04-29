@@ -1,0 +1,24 @@
+{
+  "backgorund-blur": {
+    "md": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3077:438",
+        "com.figma.scopes": [
+          "EFFECT_FLOAT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:4c482ad3c8061f56579f91c425f7d13b1deb9dd1/-1:-1",
+          "targetVariableName": "md",
+          "targetVariableSetId": "VariableCollectionId:71665ecbdb568f14d3b949551466f4654de0d6a8/-1:-1",
+          "targetVariableSetName": "spacing"
+        },
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Mode 1"
+  }
+}
