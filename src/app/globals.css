@@ -429,6 +429,19 @@
   }
 }
 
+/* Animation keyframes — global, applied conditionally via @media below */
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal-child] {
     opacity: 0;
@@ -446,13 +459,6 @@
   .is-revealed [data-reveal-child][data-stagger-index="4"] { animation-delay: 320ms; }
   .is-revealed [data-reveal-child][data-stagger-index="5"] { animation-delay: 400ms; }
 
-  @keyframes reveal-up {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .reveal-unit {
     opacity: 0;
     transform: translateY(12px);
@@ -460,11 +466,6 @@
   .is-revealed .reveal-unit,
   .is-revealed.reveal-unit {
     animation: reveal-up 450ms ease-out forwards;
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
   }
 
   .pill-carousel {
