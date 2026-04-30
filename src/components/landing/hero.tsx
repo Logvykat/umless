@@ -11,7 +11,7 @@ interface HeroProps {
 }
 
 export function Hero({ onRecord }: HeroProps) {
-  const { ref, isRevealed } = useScrollReveal({ immediate: true, delay: 100 });
+  const { ref, isRevealed } = useScrollReveal({ immediate: true, delay: 150 });
 
   return (
     <section

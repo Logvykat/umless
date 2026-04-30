@@ -20,12 +20,14 @@ export function Closer({ onRecord }: CloserProps) {
       <DotPattern />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[32rem] md:max-w-[40rem] mx-auto">
-        <Mic
-          className="size-8 mb-8 text-muted-foreground"
-          strokeWidth={1.5}
-          data-reveal-child
-          data-stagger-index="0"
-        />
+        <div className="size-12 rounded-full bg-background flex items-center justify-center shadow-sm-soft mb-8">
+          <Mic
+            className="size-6 text-foreground"
+            strokeWidth={1.5}
+            data-reveal-child
+            data-stagger-index="0"
+          />
+        </div>  
 
         <h2
           className="font-display font-semibold text-[32px] leading-none tracking-[-1px] text-foreground mb-6 md:text-[48px]"

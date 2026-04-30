@@ -29,8 +29,8 @@ export function TopBar() {
       className={cn(
         "sticky top-0 z-50 flex items-center justify-between px-6 transition-all duration-[250ms] ease-out",
         isScrolled
-          ? "py-2 backdrop-blur-md border-b border-border"
-          : "py-4 md:py-[32px] border-b border-transparent"
+          ? "py-5 backdrop-blur-md border-b border-border"
+          : "py-5 md:py-8 border-b border-border"
       )}
       style={{
         backgroundColor: "var(--color-nav-bg)",

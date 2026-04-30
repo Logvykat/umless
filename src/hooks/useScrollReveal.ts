@@ -11,7 +11,7 @@ interface UseScrollRevealOptions {
 export function useScrollReveal<T extends HTMLElement = HTMLElement>(
   options: UseScrollRevealOptions = {}
 ) {
-  const { threshold = 0.2, delay = 0, immediate = false } = options;
+  const { threshold = 0.3, delay = 0, immediate = false } = options;
   const ref = useRef<T>(null);
   const [isRevealed, setIsRevealed] = useState(false);
 
