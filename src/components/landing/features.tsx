@@ -77,12 +77,14 @@ export function Features() {
           data-reveal-child
           data-stagger-index="4"
         >
-          <div className="pill-carousel">
-            {[...PILLS, ...PILLS].map((pill, i) => (
-              <Badge key={i} variant="outline" size="2xl" className="shrink-0 mx-2">
-                {pill}
-              </Badge>
-            ))}
+          <div className="pill-carousel-wrapper">
+            <div className="pill-carousel">
+              {[...PILLS, ...PILLS, ...PILLS, ...PILLS].map((pill, i) => (
+                <Badge key={i} variant="outline" size="2xl" className="shrink-0 mx-2">
+                  {pill}
+                </Badge>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { Closer } from "@/components/landing/closer";
 import { Footer } from "@/components/landing/footer";
 
 export default function LandingPage() {
-  // Placeholder — will be wired to the recording state machine in a later session
   const handleRecord = () => console.log("start recording clicked");
 
   return (
@@ -21,6 +20,17 @@ export default function LandingPage() {
         <Closer onRecord={handleRecord} />
       </main>
       <Footer />
+      {/* Sticky blur panel */}
+      <div 
+        className="fixed bottom-0 left-0 right-0 h-24 pointer-events-none z-50"
+        style={{
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(24px)",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1))",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1))",
+          background: "transparent"
+        }}
+      />
     </div>
   );
 }
