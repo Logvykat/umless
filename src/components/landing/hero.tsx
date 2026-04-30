@@ -16,11 +16,12 @@ export function Hero({ onRecord }: HeroProps) {
   return (
     <section
       ref={ref}
-      className={`relative overflow-hidden bg-background${isRevealed ? " is-revealed" : ""}`}
+      className={`relative bg-background${isRevealed ? " is-revealed" : ""}`}
     >
+      <div className="absolute inset-x-0 top-0 h-[720px] md:h-[900px] pointer-events-none">
       <DotPattern fadeBottom />
-
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-6 md:pt-26 md:pb-12 w-full max-w-[960px] mx-auto">
+      </div>
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-6 md:pt-32 md:pb-12 w-full max-w-[960px] mx-auto">
         <Badge
           variant="outline"
           className="mb-8"

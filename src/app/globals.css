@@ -263,7 +263,7 @@
   --card-surface:    var(--brand-neutrals-100);
   --nav-bg:          var(--alpha-white-80);
   --nav-border:      var(--border);
-  --dot-pattern:     var(--alpha-black-10);
+  --dot-pattern:     var(--alpha-black-20);
   --timer-track:     var(--alpha-black-10);
   --section-bg:      var(--muted);
   --card-result-bg:  var(--card);
@@ -365,7 +365,7 @@
   --shadow-sm:      0 1px 3px 0 var(--alpha-black-10), 0 1px 2px -1px var(--alpha-black-10);
   --shadow-sm-soft: 0 2px 4px 0 var(--alpha-black-5);
   --shadow-md:      0 4px 6px -1px var(--alpha-black-10), 0 2px 4px -2px var(--alpha-black-10);
-  --shadow-lg:      0 10px 15px -3px var(--alpha-black-10), 0 4px 6px -4px var(--alpha-black-10);
+  --shadow-lg:      0 10px 15px -3px var(--alpha-black-20), 0 4px 6px -4px var(--alpha-black-20);
   --shadow-xl:      0 20px 25px -5px var(--alpha-black-10), 0 8px 10px -6px var(--alpha-black-10);
   --shadow-2xl:     0 25px 50px -12px var(--alpha-black-10);
 
