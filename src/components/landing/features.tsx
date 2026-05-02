@@ -1,6 +1,6 @@
 "use client";
 
-import { Gauge, MessageSquare, PauseCircle } from "lucide-react";
+import { CircleGauge, MessageSquare, PauseCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
   {
-    icon: Gauge,
+    icon: CircleGauge,
     title: "Speaking pace",
     description:
       "Are you rushing? Dragging? See your words-per-minute against benchmarks.",
