@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Globe } from "lucide-react";
+import { Clock4, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "./dot-pattern";
@@ -53,17 +53,18 @@ export function Hero({ onRecord }: HeroProps) {
           respects your time. Built for Toastmasters milestones — 5, 6, and 7
           minutes.
         </p>
+        
+        <span data-reveal-child data-stagger-index="3">
+          <Button
+            variant="default"
+            size="2xl"
+            disabled
+          >
+          Recording is coming soon
+          <Clock4 />
+         </Button>
+        </span>
 
-        <Button
-          variant="default"
-          size="2xl"
-          onClick={onRecord}
-          data-reveal-child
-          data-stagger-index="3"
-        >
-          Start recording
-          <ArrowRight />
-        </Button>
       </div>
     </section>
   );

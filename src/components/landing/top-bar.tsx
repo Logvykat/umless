@@ -58,6 +58,7 @@ export function TopBar() {
           variant="secondary"
           size="lg"
           className="h-10 rounded-full px-4"
+          disabled
         >
           Share
           <ArrowUpRight />

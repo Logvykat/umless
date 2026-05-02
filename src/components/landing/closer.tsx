@@ -1,6 +1,6 @@
 "use client";
 
-import { Mic, ArrowRight } from "lucide-react";
+import { Mic, Clock4 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "./dot-pattern";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -45,16 +45,17 @@ export function Closer({ onRecord }: CloserProps) {
           Five or seven minutes. The Toastmasters speech you want to nail.
         </p>
 
-        <Button
-          variant="default"
-          size="2xl"
-          onClick={onRecord}
-          data-reveal-child
-          data-stagger-index="3"
-        >
-          Start recording
-          <ArrowRight />
-        </Button>
+        <span data-reveal-child data-stagger-index="3">
+          <Button
+            variant="default"
+            size="2xl"
+            disabled
+          >
+          Recording is coming soon
+          <Clock4 />
+         </Button>
+        </span>
+
       </div>
     </section>
   );

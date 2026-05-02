@@ -1,5 +1,6 @@
 "use client";
 
+import { WipBanner } from "@/components/landing/wip-banner";
 import { TopBar } from "@/components/landing/top-bar";
 import { Hero } from "@/components/landing/hero";
 import { Features } from "@/components/landing/features";
@@ -12,6 +13,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <WipBanner />
       <TopBar />
       <main className="flex flex-col flex-1">
         <Hero onRecord={handleRecord} />

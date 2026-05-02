@@ -263,7 +263,7 @@
   --card-surface:    var(--brand-neutrals-100);
   --nav-bg:          var(--alpha-white-80);
   --nav-border:      var(--border);
-  --dot-pattern:     var(--alpha-black-20);
+  --dot-pattern:     var(--alpha-black-30);
   --timer-track:     var(--alpha-black-10);
   --section-bg:      var(--muted);
   --card-result-bg:  var(--card);
