@@ -23,6 +23,7 @@ function DotPatternStatic({ className, fadeBottom = false, style, variant = 'lig
       aria-hidden
       className={cn("absolute inset-0 pointer-events-none", className)}
       style={{
+        top: '-12px',
         ...(fadeBottom ? {
           maskImage: "linear-gradient(to bottom, black 30%, transparent 85%)",
           WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 85%)",
@@ -86,6 +87,7 @@ function DotPatternAnimatedInner({ className, fadeBottom = false, style, variant
       aria-hidden
       className={cn("absolute inset-0 pointer-events-none", className)}
       style={{
+        top: '-12px',
         ...(fadeBottom ? {
           maskImage: "linear-gradient(to bottom, black 30%, transparent 85%)",
           WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 85%)",

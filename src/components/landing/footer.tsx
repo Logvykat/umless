@@ -39,8 +39,8 @@ export function Footer() {
                 </Link>
               ))}
             </nav>
-            <span className="text-base text-[#f5f5f5]/60 px-3 pt-5 md:px-0">
-              2026 All rights reserved
+            <span className="text-base opacity-30 px-3 pt-5 md:px-0">
+              Made with Claude & coffee, 2026
             </span>
           </div>
 

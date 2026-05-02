@@ -36,9 +36,9 @@ export function TopBar() {
         backgroundColor: "var(--color-nav-bg)",
       }}
     >
-      <div className="flex items-center gap-3">
-        <Logo className="size-9 shrink-0" />
-        <span className="font-display font-bold text-[20px] text-foreground">
+      <div className="flex items-center gap-2.5">
+        <Logo className={cn("shrink-0 transition-all duration-[250ms]", isScrolled ? "size-8" : "size-9")} />
+        <span className={cn("font-display font-semibold text-foreground transition-all duration-[250ms]", isScrolled ? "text-[15px]" : "text-[17px]")}>
           Umless
         </span>
       </div>

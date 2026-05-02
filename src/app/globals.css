@@ -261,7 +261,7 @@
   /* page-surface snapped from #F1F1F1 to neutral-100 (#F5F5F5) — nearest token */
   --page-surface:             var(--brand-neutrals-100);
   --card-surface:             var(--brand-neutrals-100);
-  --nav-bg:                   var(--alpha-white-80);
+  --nav-bg:                   var(--alpha-white-60);
   --nav-border:               var(--border);
   --dot-pattern-light-bg:     var(--alpha-black-30);
   --dot-pattern-dark-bg:      var(--alpha-black-10);

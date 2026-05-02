@@ -15,7 +15,7 @@ export function Closer({ onRecord }: CloserProps) {
   return (
     <section
       ref={ref}
-      className={`relative overflow-hidden py-24 px-6 bg-muted${isRevealed ? " is-revealed" : ""}`}
+      className={`relative overflow-hidden py-24 px-6 border-t border-border bg-muted${isRevealed ? " is-revealed" : ""}`}
     >
       <DotPattern variant="dark"/>
 
