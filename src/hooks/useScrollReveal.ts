@@ -11,7 +11,7 @@ interface UseScrollRevealOptions {
 export function useScrollReveal<T extends HTMLElement = HTMLElement>(
   options: UseScrollRevealOptions = {}
 ) {
-  const { threshold = 0.3, delay = 0, immediate = false } = options;
+  const { threshold = 0.6, delay = 0, immediate = false } = options;
   const ref = useRef<T>(null);
   const [isRevealed, setIsRevealed] = useState(false);
 
@@ -22,9 +22,10 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
     if (prefersReduced) {
-      setIsRevealed(true);
-      return;
+      const timer = setTimeout(() => setIsRevealed(true), 0);
+      return () => clearTimeout(timer);
     }
 
     if (immediate) {

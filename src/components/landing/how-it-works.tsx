@@ -37,7 +37,6 @@ export function HowItWorks() {
               data-reveal-child
               data-stagger-index={idx + 1}
             >
-              {/* Number + title — heading-3 scale per Figma */}
               <div className="flex items-center gap-6 shrink-0">
                 <div className="size-8 rounded-full bg-foreground flex items-center justify-center shrink-0">
                   <span className="text-sm font-semibold text-background leading-none">
@@ -49,8 +48,8 @@ export function HowItWorks() {
                 </span>
               </div>
 
-              {/* Description — heading-3 scale, muted color per Figma */}
-              <span className="font-display font-semibold text-[18px] leading-[27px] tracking-[-0.5px] text-muted-foreground text-right md:text-[32px] md:leading-[36px] md:tracking-[-1px] md:whitespace-nowrap">
+              {/* Description — hidden on mobile */}
+              <span className="hidden md:block font-display font-semibold text-[32px] leading-[36px] tracking-[-1px] text-muted-foreground text-right whitespace-nowrap">
                 {description}
               </span>
             </div>

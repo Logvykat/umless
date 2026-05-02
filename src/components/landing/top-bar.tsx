@@ -27,7 +27,7 @@ export function TopBar() {
   return (
     <nav
       className={cn(
-        "sticky top-0 z-50 flex items-center justify-between px-6 transition-all duration-[250ms] ease-out",
+        "sticky top-0 z-50 flex items-center justify-between px-12 transition-all duration-[250ms] ease-out",
         isScrolled
           ? "py-5 backdrop-blur-md border-b border-border"
           : "py-5 md:py-8 border-b border-border"
@@ -36,9 +36,9 @@ export function TopBar() {
         backgroundColor: "var(--color-nav-bg)",
       }}
     >
-      <div className="flex items-center gap-2">
-        <Logo className="size-7 shrink-0" />
-        <span className="font-display font-semibold text-[15px] text-foreground">
+      <div className="flex items-center gap-3">
+        <Logo className="size-9 shrink-0" />
+        <span className="font-display font-bold text-[20px] text-foreground">
           Umless
         </span>
       </div>

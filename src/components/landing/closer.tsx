@@ -17,7 +17,7 @@ export function Closer({ onRecord }: CloserProps) {
       ref={ref}
       className={`relative overflow-hidden py-24 px-6 bg-muted${isRevealed ? " is-revealed" : ""}`}
     >
-      <DotPattern />
+      <DotPattern variant="dark"/>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-[32rem] md:max-w-[40rem] mx-auto">
         <div className="size-12 rounded-full bg-background flex items-center justify-center shadow-sm-soft mb-8">

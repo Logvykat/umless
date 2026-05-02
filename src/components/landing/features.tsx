@@ -30,7 +30,7 @@ const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
 const PILLS = ["No signup", "English only", "Free", "Private"];
 
 export function Features() {
-  const { ref, isRevealed } = useScrollReveal({ threshold: 0.2 });
+  const { ref, isRevealed } = useScrollReveal({ threshold: 0.2, delay: 600 });
 
   return (
     <section

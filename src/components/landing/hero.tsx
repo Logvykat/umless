@@ -19,7 +19,7 @@ export function Hero({ onRecord }: HeroProps) {
       className={`relative bg-background${isRevealed ? " is-revealed" : ""}`}
     >
       <div className="absolute inset-x-0 top-0 h-[720px] md:h-[900px] pointer-events-none">
-      <DotPattern fadeBottom />
+      <DotPattern animated fadeBottom />
       </div>
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-6 md:pt-32 md:pb-12 w-full max-w-[960px] mx-auto">
         <Badge
@@ -53,7 +53,7 @@ export function Hero({ onRecord }: HeroProps) {
           respects your time. Built for Toastmasters milestones — 5, 6, and 7
           minutes.
         </p>
-        
+
         <span data-reveal-child data-stagger-index="3">
           <Button
             variant="default"
