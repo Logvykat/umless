@@ -3,8 +3,8 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Link } from "@/components/ui/link";
 
-const KITCHEN_URL = "https://your-substack-url.substack.com";
-const PORTFOLIO_URL = "https://your-portfolio.com";
+const KITCHEN_URL = "https://thekitchenblog.substack.com/";
+const PORTFOLIO_URL = "https://kateryna-logvynenko.notion.site/";
 
 const NAV_LINKS: { label: string; href: string; external: boolean; active: boolean }[] = [
   { label: "About", href: PORTFOLIO_URL, external: true, active: true },
@@ -21,8 +21,8 @@ export function Footer() {
       ref={ref}
       className={`bg-primary text-primary-foreground overflow-hidden${isRevealed ? " is-revealed" : ""}`}
     >
-      <div className="flex flex-col items-center pt-[64px] pb-[96px] reveal-unit">
-        <div className="w-full max-w-[1100px] px-6 md:px-0 flex flex-col gap-[64px]">
+      <div className="flex flex-col items-center pt-[64px] pb-[64px] reveal-unit">
+        <div className="w-full max-w-[1100px] px-6 md:px-0 flex flex-col gap-[48px]">
 
           {/* Links + copyright row */}
           <div className="flex flex-col items-center gap-2 md:flex-row md:items-center md:justify-between">
@@ -47,8 +47,8 @@ export function Footer() {
           {/* Ghost wordmark — hidden on mobile */}
           <p
             className="hidden md:block font-sans font-semibold text-muted-foreground opacity-[0.24] text-center whitespace-nowrap leading-none select-none"
-            aria-hidden
-            style={{ fontSize: "317px" }}
+            aria-hidden 
+            style={{ fontSize: "313px", marginLeft: "-0.04em" }}
           >
             Umless
           </p>

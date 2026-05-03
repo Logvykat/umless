@@ -264,7 +264,7 @@
   --nav-bg:                   var(--alpha-white-60);
   --nav-border:               var(--border);
   --dot-pattern-light-bg:     var(--alpha-black-30);
-  --dot-pattern-dark-bg:      var(--alpha-black-10);
+  --dot-pattern-dark-bg:      var(--alpha-black-5);
   --timer-track:              var(--alpha-black-10);
   --section-bg:               var(--muted);
   --card-result-bg:           var(--card);
