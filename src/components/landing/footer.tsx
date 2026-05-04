@@ -40,7 +40,7 @@ export function Footer() {
             </nav>
             <span className="text-base opacity-30 hidden md:flex md:items-center">
               Built with Claude & coffee by{" "}
-              <Link variant="nav" href={PORTFOLIO_URL} external className="-ml-1">
+              <Link variant="nav" href={PORTFOLIO_URL} external className="-ml-1.5">
                 Kate
               </Link>
             </span>
