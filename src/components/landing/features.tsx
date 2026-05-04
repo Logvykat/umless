@@ -35,7 +35,7 @@ export function Features() {
   return (
     <section
       ref={ref}
-      className={`py-12 pb-6 bg-background${isRevealed ? " is-revealed" : ""}`}
+      className={`pb-12 bg-background${isRevealed ? " is-revealed" : ""}`}
     >
       <div className="max-w-[1100px] mx-auto">
         <h2
