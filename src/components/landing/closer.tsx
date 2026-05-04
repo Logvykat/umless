@@ -38,7 +38,7 @@ export function Closer({ onRecord }: CloserProps) {
         </h2>
 
         <p
-          className="text-base text-muted-foreground mb-8 max-w-[20rem] md:max-w-[24rem] md:text-[17px] md:leading-[26px]"
+          className="text-base text-muted-foreground mb-8 max-w-[20rem] md:max-w-[24rem] md:text-[18px] md:leading-[27px]"
           data-reveal-child
           data-stagger-index="2"
         >

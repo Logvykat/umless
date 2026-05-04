@@ -11,19 +11,19 @@ const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
     icon: CircleGauge,
     title: "Speaking pace",
     description:
-      "Are you rushing? Dragging? See your words-per-minute against benchmarks.",
+      "Are you rushing or dragging? Words-per-minute, measured against benchmarks.",
   },
   {
     icon: MessageSquare,
     title: "Filler words",
     description:
-      "Every um, uh, like, you know — counted, timestamped, unavoidable.",
+      "Every um, uh, like, you know, and more — counted, timestamped, unavoidable.",
   },
   {
     icon: PauseCircle,
     title: "Pauses",
     description:
-      "Silence isn't empty. See where you paused, and whether it landed.",
+      "Silence isn't empty. See exactly where you paused, and whether it actually landed.",
   },
 ];
 

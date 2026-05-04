@@ -1,8 +1,6 @@
 "use client";
 
 import { Link } from "@/components/ui/link";
-import { Badge } from "@/components/ui/badge";
-import { CookingPotIcon } from "lucide-react";
 
 const KITCHEN_URL = "https://thekitchenblog.substack.com/";
 
