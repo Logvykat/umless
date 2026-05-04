@@ -21,7 +21,7 @@ export function Footer() {
       className={`bg-primary text-primary-foreground overflow-hidden${isRevealed ? " is-revealed" : ""}`}
     >
       <div className="flex flex-col items-center pt-[64px] pb-[64px] reveal-unit">
-        <div className="w-full max-w-[1100px] px-6 md:px-0 flex flex-col gap-[48px]">
+        <div className="w-full max-w-[1100px] px-7 md:px-0 flex flex-col gap-[32px]">
 
           {/* Links + Made with row */}
           <div className="flex flex-col items-center gap-2 md:flex-row md:items-center md:justify-between">

@@ -21,7 +21,7 @@ export function Hero({ onRecord }: HeroProps) {
       <div className="absolute inset-x-0 top-0 h-[720px] md:h-[900px] pointer-events-none">
       <DotPattern animated fadeBottom />
       </div>
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-6 md:pt-32 md:pb-12 w-full max-w-[960px] mx-auto">
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 w-full max-w-[960px] mx-auto">
         <Badge
           variant="outline"
           className="mb-8"
